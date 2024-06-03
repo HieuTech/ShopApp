@@ -16,6 +16,6 @@ import java.util.logging.Level;
 @NoArgsConstructor
 
 public class CategoriesDTO {
-    @NotEmpty(message = "name is not be Blank")
+    @NotBlank(message = "name is not be Blank")
     private String  name;
 }

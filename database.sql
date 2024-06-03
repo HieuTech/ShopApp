@@ -62,6 +62,19 @@ CREATE TABLE products (
     category_id INT,
     FOREIGN KEY (category_id) REFERENCES categories (id)
 );
+
+CREATE TABLE product_image (
+                          id INT PRIMARY KEY AUTO_INCREMENT,
+                            product_id INT NOT NULL,
+    image_url VARCHAR(300)
+
+
+);
+
+ALTER TABLE product_image ADD CONSTRAINT  FOREIGN KEY (product_id) REFERENCES products (id) ON DELETE CASCADE;
+
+
+
 # --Đặt hàng - orders
 CREATE TABLE orders(
     id INT PRIMARY KEY AUTO_INCREMENT,

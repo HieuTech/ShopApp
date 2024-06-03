@@ -3,10 +3,13 @@ package org.oauth2.shopapp.controller;
 
 import jakarta.validation.Valid;
 import org.oauth2.shopapp.dto.request.CategoriesDTO;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/categories")
@@ -22,10 +25,11 @@ public class CategoryController {
 
     @PostMapping("") //http://localhost:8083/api/v1/categories
     //Nếu tham số truyền vào là 1 object thì là phải thông qua DTO
-    public ResponseEntity<String> createCategories(@RequestBody @Valid  CategoriesDTO categoriesDTO,
+    public ResponseEntity<?> createCategories(@RequestBody @Valid  CategoriesDTO categoriesDTO,
                                                    BindingResult resultError){
         if(resultError.hasErrors()){
-            return ResponseEntity.badRequest().body("Error");
+            List<String> errorMessage = resultError.getFieldErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList();
+            return ResponseEntity.badRequest().body(errorMessage);
         }
     return ResponseEntity.ok("This is create categories" + categoriesDTO.getName());
     }
