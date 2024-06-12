@@ -37,7 +37,7 @@ spring:
       max-request-size: 10MB
 
 amazonProperties:
-    endpointUrl: https://s3.us-east-1.amazonaws.com
-    accessKey: AKIAVRUVSQ5OLR3PFKFL
-    secretKey: 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
-    bucketName: simplestoreservice
+  endpointUrl: https://s3.us-east-1.amazonaws.com
+  accessKey: AKIAVRUVSQ5OLR3PFKFL
+  secretKey: 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
+  bucketName: simplestoreservice

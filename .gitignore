@@ -30,6 +30,6 @@ build/
 !**/src/test/**/build/
 
 note.txt
-
+application.yml
 ### VS Code ###
 .vscode/
