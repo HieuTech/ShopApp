@@ -1,0 +1,64 @@
+version: "3.6"
+
+
+services:
+
+
+  maildev:
+    image: maildev/maildev
+    restart: always
+    ports:
+      - "1080:1080"
+      - "587:587"
+      - "1025:1025"
+    environment:
+      - EMAIL_HOST=smtp.gmail.com
+      - MAIL_PORT=587
+      - MAIL_USERNAME=rosasuong.tech@gmail.com
+      - MAIL_PASSWORD=uqqbjgeeffetravf
+      - MAIL_STMP_AUTH=true
+      - MAIL_STARTTLS_ENABLE=true
+      - MAIL_STARTTLS_REQUIRED=true
+
+
+  mongodb:
+    image: mongo
+    container_name: mongo_db
+    ports:
+     - "27017:27017"
+    volumes:
+      - mongo:/data
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=hieu
+      - MONGO_INITDB_ROOT_PASSWORD=hieu123
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    ports:
+      - "8081:8081"
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=hieu
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=hieu123
+      - ME_CONFIG_MONGODB_SERVER=mongodb
+
+  spring-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - maildev
+      - mongodb
+      - mongo-express
+    restart: always
+    ports:
+      - "8080:8080"
+
+
+
+
+
+
+volumes:
+  mongo: {}
+
