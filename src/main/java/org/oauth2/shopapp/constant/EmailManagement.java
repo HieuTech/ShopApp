@@ -1,4 +1,4 @@
-package org.oauth2.shopapp.config;
+package org.oauth2.shopapp.constant;
 
 
 import lombok.*;
@@ -41,13 +41,13 @@ public class EmailManagement {
         return emailContent.toString();
     }
 
-    public static String registerSuccess(String customerName, String username, String customerEmail) {
+    public static String registerSuccess( String userName, String customerEmail) {
         StringBuilder emailContent = new StringBuilder();
-        emailContent.append("Dear ").append(customerName).append(",\n\n")
+        emailContent.append("Dear ").append(userName).append(",\n\n")
                 .append("Welcome to [SmartPhone Shop]!\n\n")
                 .append("We are thrilled to have you with us. Your registration has been successfully completed. You can now enjoy all the benefits of being a member of our community.\n\n")
                 .append("Your Account Details:\n")
-                .append("- Username: ").append(username).append("\n")
+                .append("- Username: ").append(userName).append("\n")
                 .append("- Email: ").append(customerEmail).append("\n\n")
                 .append("To get started, please visit our website and log in using your credentials. If you need any assistance, feel free to reach out to us at [Customer Service Email].\n\n")
                 .append("Thank you for joining us, and we look forward to serving you!\n\n")

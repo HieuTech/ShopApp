@@ -42,6 +42,7 @@ services:
       - ME_CONFIG_MONGODB_ADMINPASSWORD=hieu123
       - ME_CONFIG_MONGODB_SERVER=mongodb
 
+
   spring-app:
     build:
       context: .
@@ -50,14 +51,10 @@ services:
       - maildev
       - mongodb
       - mongo-express
+
     restart: always
     ports:
       - "8080:8080"
-
-
-
-
-
 
 volumes:
   mongo: {}

@@ -15,7 +15,7 @@ public class PasswordMatchesValidator implements ConstraintValidator<PasswordMat
        boolean isValid = userDTO.getRetypePassword().equals(userDTO.getPassword());
        if(!isValid){
            context.disableDefaultConstraintViolation();
-           context.buildConstraintViolationWithTemplate("Retype egergeg Match")
+           context.buildConstraintViolationWithTemplate("Retype not Match")
                    .addPropertyNode("RepeatPassword")
                    .addConstraintViolation();
        }

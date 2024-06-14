@@ -1,6 +1,6 @@
 package org.oauth2.shopapp.service;
 
-import org.oauth2.shopapp.config.EmailManagement;
+import org.oauth2.shopapp.constant.EmailManagement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;

@@ -54,11 +54,11 @@ public class ProductController {
             @RequestParam("page") Integer page,
             @RequestParam("limit") Integer limit) {
 
-        String toEmail = "hoangleminhhieu98@gmail.com";
-        String subject = "Here Is Subject Email";
-        String body = "Here Is Body Email";
+//        String toEmail = "hoangleminhhieu98@gmail.com";
+//        String subject = "Here Is Subject Email";
+//        String body = "Here Is Body Email";
 
-        emailService.sendMail(toEmail,subject,body);
+//        emailService.sendMail(toEmail,subject,body);
 
 
         return ResponseEntity.ok(String.format("get Products, page = %d, limit = %d", page, limit));

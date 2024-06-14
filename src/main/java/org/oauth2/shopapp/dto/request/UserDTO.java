@@ -4,8 +4,10 @@ package org.oauth2.shopapp.dto.request;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
 import lombok.*;
+import org.oauth2.shopapp.validation.DobConstraint;
 import org.oauth2.shopapp.validation.PasswordMatches;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -17,32 +19,18 @@ import java.util.Date;
 
 public class UserDTO {
 
-    @JsonProperty("fullname")
-    private String fullName;
+    @NotBlank(message = "Email Is Required")
 
-    @JsonProperty("phone_number")
-    @NotBlank(message = "Phone Number Is Required")
+    private String userName;
 
-    private String phoneNumber;
 
-    private String address;
+    @NotBlank(message = "Email Is Required")
+    private String email;
 
-    @NotBlank(message = "Password cant be blank")
+    @NotBlank(message = "Password Is Required")
     private String password;
 
     private String retypePassword;
 
-    @JsonProperty("date_of_birth")
-    private Date dob;
-
-    @JsonProperty("facebook_account_id")
-    private Integer facebookAccountId;
-
-    @JsonProperty("google_account_id")
-    private Integer googleAccountId;
-
-    @NotNull(message = "Role ID is required")
-    @JsonProperty("role_id")
-    private Long roleId;
 
 }

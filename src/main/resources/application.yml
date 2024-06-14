@@ -1,10 +1,9 @@
-
 server:
-  port: 8083
-
+  port: 8080
+  servlet:
+    context-path: /identity
 
 spring:
-
 
   mail:
     host: smtp.gmail.com
@@ -28,8 +27,6 @@ spring:
       authentication-database: admin
 
 
-
-
   servlet:
     multipart:
       enabled: true
@@ -41,3 +38,8 @@ amazonProperties:
   accessKey: AKIAVRUVSQ5OLR3PFKFL
   secretKey: 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
   bucketName: simplestoreservice
+
+jwt:
+  secretKey: "1TjXchw5FloESb63Kc+DFhTARvpWL4jUGCwfGWxuG5SIf/1y/LgJxHnMqaF6A/ij"
+  valid-duration: 3600    #insecond
+  refresh-duration: 4600
