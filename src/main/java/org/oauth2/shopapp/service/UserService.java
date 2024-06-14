@@ -64,8 +64,20 @@ public class UserService {
 
     public UserResponse getUserById(String id){
         Users users = iUserRepository.findById(id).orElseThrow(() -> new UserNotFoundException(ErrorDetail.USER_NOT_EXISTED)) ;
-
         return userMapper.toUserResponse(users);
+    }
+
+    public String blockUser(String id){
+        Users users = iUserRepository.findById(id).orElseThrow(() -> new UserNotFoundException(ErrorDetail.USER_NOT_EXISTED)) ;
+        users.setIs_active(false);
+        iUserRepository.save(users);
+        return "Blocked";
+    }
+    public String unBlockUser(String id){
+        Users users = iUserRepository.findById(id).orElseThrow(() -> new UserNotFoundException(ErrorDetail.USER_NOT_EXISTED)) ;
+        users.setIs_active(true);
+        iUserRepository.save(users);
+        return "UnBlocked";
     }
 
 }

@@ -8,6 +8,8 @@ import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import lombok.RequiredArgsConstructor;
 import org.oauth2.shopapp.constant.ErrorDetail;
+import org.oauth2.shopapp.constant.RoleName;
+import org.oauth2.shopapp.entity.Roles;
 import org.oauth2.shopapp.entity.Users;
 import org.oauth2.shopapp.exception.CreateTokenException;
 import org.oauth2.shopapp.exception.UnAuthenticationException;
@@ -19,7 +21,9 @@ import java.text.ParseException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -43,7 +47,7 @@ public class JwtProvider {
                 .issuer("GoVegan Server")
                 .expirationTime(new Date(Instant.now().plus(VALID_DURATION, ChronoUnit.SECONDS).toEpochMilli()))
                 .jwtID(UUID.randomUUID().toString()).
-                claim("scope", users.getRolesList()).
+                claim("scope", editScope(users)).
                 build();
 
         Payload payload = new Payload(jwtClaimsSet.toJSONObject());
@@ -56,6 +60,9 @@ public class JwtProvider {
         } catch (JOSEException e) {
             throw new CreateTokenException(ErrorDetail.CREATE_JWT_ERROR);
         }
+    }
+    private List<RoleName> editScope(Users users){
+        return users.getRolesList().stream().map(Roles::getRoleName).collect(Collectors.toList());
     }
 
     //dung cho logout

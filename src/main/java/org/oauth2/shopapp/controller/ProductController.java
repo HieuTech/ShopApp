@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import org.oauth2.shopapp.dto.request.CategoriesDTO;
 import org.oauth2.shopapp.dto.request.ProductDTO;
 import org.oauth2.shopapp.service.EmailService;
+import org.oauth2.shopapp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
@@ -33,7 +34,7 @@ import java.util.UUID;
 @Tag(name = "Product")
 public class ProductController {
     @Autowired
-    private EmailService emailService;
+    private ProductService productService;
 
     @Operation(
             description = "Get endpoint for Product",
@@ -53,13 +54,7 @@ public class ProductController {
     public ResponseEntity<String> getProduct(
             @RequestParam("page") Integer page,
             @RequestParam("limit") Integer limit) {
-
-//        String toEmail = "hoangleminhhieu98@gmail.com";
-//        String subject = "Here Is Subject Email";
-//        String body = "Here Is Body Email";
-
-//        emailService.sendMail(toEmail,subject,body);
-
+        productService
 
         return ResponseEntity.ok(String.format("get Products, page = %d, limit = %d", page, limit));
 

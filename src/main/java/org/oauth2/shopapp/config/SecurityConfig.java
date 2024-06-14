@@ -1,6 +1,7 @@
 package org.oauth2.shopapp.config;
 
 import lombok.RequiredArgsConstructor;
+import org.oauth2.shopapp.constant.RoleName;
 import org.oauth2.shopapp.security.AccessDenied;
 import org.oauth2.shopapp.security.CustomJwtGrantedAuthorConverter;
 import org.oauth2.shopapp.security.JwtAuthenticationEntryPoint;
@@ -28,10 +29,12 @@ import org.springframework.web.filter.CorsFilter;
 @EnableMethodSecurity
 //@RequiredArgsConstructor
 public class SecurityConfig {
-    private final String[] PUBLIC_ENDPOINTS = {
-            "/api/v1/users/register", "/api/v1/auth/token", "/api/v1/auth/introspect", "/api/v1/auth/logout", "/api/v1/auth/refresh"
+    private final String[] PUBLIC_POST_ENDPOINTS = {
+            "/api/v1/register", "/api/v1/auth/token", "/api/v1/auth/introspect", "/api/v1/auth/logout", "/api/v1/auth/refresh"
             , "/api/v1/auth/outbound/authentication"
     };
+
+
     private  final JwtDecoderCustom jwtDecoderCustom;
     private final AccessDenied accessDenied ;
     public SecurityConfig(@Lazy JwtDecoderCustom jwtDecoderCustom, @Lazy AccessDenied accessDenied){
@@ -43,7 +46,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.
-                authorizeHttpRequests(request -> request.requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll()
+                authorizeHttpRequests(request -> request.requestMatchers(HttpMethod.POST, PUBLIC_POST_ENDPOINTS).permitAll()
+                        .requestMatchers("/api/v1/admin/**").hasAnyAuthority(RoleName.ROLE_ADMIN.name())
+                        .requestMatchers("/api/v1/user/**").hasAnyAuthority(RoleName.ROLE_USER.name())
                         .anyRequest().authenticated());
 
         httpSecurity.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwtConfigurer ->
