@@ -2,15 +2,15 @@ package org.oauth2.shopapp.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.oauth2.shopapp.dto.request.CategoriesDTO;
+import org.oauth2.shopapp.constant.ErrorDetail;
 import org.oauth2.shopapp.dto.request.ProductDTO;
-import org.oauth2.shopapp.service.EmailService;
+import org.oauth2.shopapp.dto.response.ProductResponse;
+
 import org.oauth2.shopapp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -51,13 +51,16 @@ public class ProductController {
             }
     )
     @GetMapping("") //http://localhost:8083/api/v1/products?page=10&limit=3
-    public ResponseEntity<String> getProduct(
+    public org.oauth2.shopapp.dto.response.ApiResponse<Page<ProductResponse>> getProduct(
             @RequestParam("page") Integer page,
             @RequestParam("limit") Integer limit) {
-        productService
 
-        return ResponseEntity.ok(String.format("get Products, page = %d, limit = %d", page, limit));
+        Page<ProductResponse> product = productService.getAllProduct(page, limit);
 
+        return org.oauth2.shopapp.dto.response.ApiResponse.<Page<ProductResponse>>builder()
+                .message(ErrorDetail.SUCCESS.getMessage())
+                .result(product)
+                .build();
     }
 
     @GetMapping("/{id}") //http://localhost:8083/api/v1/products/11

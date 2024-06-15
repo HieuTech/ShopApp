@@ -22,7 +22,6 @@ import java.text.ParseException;
 @RequiredArgsConstructor
 public class AuthenticationController {
     private final AuthenService authenService;
-
     @PostMapping("/token")
     ApiResponse<AuthenResponse> getToken(@RequestBody AuthenRequest authenRequest) {
         var result = authenService.login(authenRequest);

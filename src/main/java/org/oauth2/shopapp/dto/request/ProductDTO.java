@@ -5,6 +5,8 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -18,12 +20,13 @@ public class ProductDTO {
     private String name;
     @Min(value = 0, message = "Price must greater than or equal to 0")
     @Max(value = 1000000, message = "Price must less than or equal 1000000")
-    private Float price;
+    private Double price;
     private String thumbnail;
     private String description;
+    private LocalDate updateAt;
 
-    @JsonProperty("category_id")
-    private Integer categoryId;
+    @NotBlank(message = "CategoryId Not Blank")
+    private String categoryId;
 
     private List<MultipartFile> files;
 }

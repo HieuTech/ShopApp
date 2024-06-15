@@ -15,6 +15,8 @@ public enum ErrorDetail {
     NULL_POINTER_EXCEPTION(500, "Null Pointer Exception", HttpStatus.INTERNAL_SERVER_ERROR),
     CREATE_JWT_ERROR(1001, "Cant Create JWT", HttpStatus.BAD_REQUEST),
     DECODE_JWT_ERROR(1010,"Cant Decode JWT", HttpStatus.BAD_REQUEST),
+    PRODUCT_NOTFOUND_ERROR(1012,"Product Not Found", HttpStatus.NOT_FOUND),
+    CATEGORY_NOTFOUND_ERROR(1013,"Category Not Found", HttpStatus.NOT_FOUND),
     USER_EXISTED(1002, "User existed", HttpStatus.BAD_REQUEST),
     USERNAME_INVALID(1003, "Username must be at least {min} characters", HttpStatus.BAD_REQUEST),
     INVALID_PASSWORD(1004, "Password must be at least {min} characters", HttpStatus.BAD_REQUEST),

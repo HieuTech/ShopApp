@@ -61,6 +61,17 @@ public class GlobalExceptionHandler {
                 .build());
     }
 
+    @ExceptionHandler(value = CategoryNotFoundException.class)
+    ResponseEntity<ApiResponse> handleCategoryNotFound(CategoryNotFoundException ex){
+        log.info("CategoryNotFoundException" + ex);
+        return ResponseEntity.status(ex.getErrorDetail().getHttpStatusCode()).body(ApiResponse.
+                builder()
+                .code(ex.getErrorDetail().getCode())
+                .message(ex.getMessage())
+                .result(ex.getErrorDetail().getHttpStatusCode())
+                .build());
+    }
+
     @ExceptionHandler(value = UnAuthorizedException.class)
     ResponseEntity<ApiResponse> handleUnAuthorizedException(UnAuthorizedException ex){
         log.info("UnAuthorizedException" + ex);

@@ -1,26 +1,23 @@
-package org.oauth2.shopapp.entity;
+package org.oauth2.shopapp.dto.response;
 
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.oauth2.shopapp.entity.Categories;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 import java.util.Date;
 
-@Document
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Products {
+public class ProductResponse {
 
-
-    @Id
     String id;
     String name;
     String description;
@@ -30,7 +27,6 @@ public class Products {
     Boolean active;
     Double price;
 
-    @DBRef
-    Categories categories;
 
+    Categories categories;
 }
