@@ -55,7 +55,7 @@ public class ProductController {
             @RequestParam("page") Integer page,
             @RequestParam("limit") Integer limit) {
 
-        Page<ProductResponse> product = productService.getAllProduct(page, limit);
+//        Page<ProductResponse> product = productService.getAllProduct(page, limit);
 
         return org.oauth2.shopapp.dto.response.ApiResponse.<Page<ProductResponse>>builder()
                 .message(ErrorDetail.SUCCESS.getMessage())
