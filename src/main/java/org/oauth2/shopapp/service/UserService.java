@@ -2,27 +2,19 @@ package org.oauth2.shopapp.service;
 
 import com.mongodb.MongoException;
 import lombok.RequiredArgsConstructor;
-import org.oauth2.shopapp.config.SecurityConfig;
 import org.oauth2.shopapp.constant.EmailManagement;
 import org.oauth2.shopapp.constant.ErrorDetail;
-import org.oauth2.shopapp.constant.RoleName;
 import org.oauth2.shopapp.dto.request.UserDTO;
 import org.oauth2.shopapp.dto.response.UserResponse;
-import org.oauth2.shopapp.entity.Roles;
 import org.oauth2.shopapp.entity.Users;
-import org.oauth2.shopapp.exception.GlobalExceptionHandler;
 import org.oauth2.shopapp.exception.MongoExceptionHandler;
-import org.oauth2.shopapp.exception.UserNotFoundException;
+import org.oauth2.shopapp.exception.NotFoundException;
 import org.oauth2.shopapp.exception.UserReadyExistException;
 import org.oauth2.shopapp.mapper.UserMapper;
-import org.oauth2.shopapp.repository.IRolesRepository;
 import org.oauth2.shopapp.repository.IUserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -53,7 +45,7 @@ public class UserService {
         var context = SecurityContextHolder.getContext();
 
         String name = context.getAuthentication().getName();
-        Users user = iUserRepository.findByEmail(name).orElseThrow(()-> new UserNotFoundException(ErrorDetail.USER_NOT_EXISTED));
+        Users user = iUserRepository.findByEmail(name).orElseThrow(()-> new NotFoundException(ErrorDetail.USER_NOT_EXISTED));
 
         return userMapper.toUserResponse(user);
     }
@@ -63,18 +55,18 @@ public class UserService {
     }
 
     public UserResponse getUserById(String id){
-        Users users = iUserRepository.findById(id).orElseThrow(() -> new UserNotFoundException(ErrorDetail.USER_NOT_EXISTED)) ;
+        Users users = iUserRepository.findById(id).orElseThrow(() -> new NotFoundException(ErrorDetail.USER_NOT_EXISTED)) ;
         return userMapper.toUserResponse(users);
     }
 
     public String blockUser(String id){
-        Users users = iUserRepository.findById(id).orElseThrow(() -> new UserNotFoundException(ErrorDetail.USER_NOT_EXISTED)) ;
+        Users users = iUserRepository.findById(id).orElseThrow(() -> new NotFoundException(ErrorDetail.USER_NOT_EXISTED)) ;
         users.setIs_active(false);
         iUserRepository.save(users);
         return "Blocked";
     }
     public String unBlockUser(String id){
-        Users users = iUserRepository.findById(id).orElseThrow(() -> new UserNotFoundException(ErrorDetail.USER_NOT_EXISTED)) ;
+        Users users = iUserRepository.findById(id).orElseThrow(() -> new NotFoundException(ErrorDetail.USER_NOT_EXISTED)) ;
         users.setIs_active(true);
         iUserRepository.save(users);
         return "UnBlocked";

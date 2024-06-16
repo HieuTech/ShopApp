@@ -28,5 +28,5 @@ public class ProductDTO {
     @NotBlank(message = "CategoryId Not Blank")
     private String categoryId;
 
-    private List<MultipartFile> files;
+    private MultipartFile files;
 }

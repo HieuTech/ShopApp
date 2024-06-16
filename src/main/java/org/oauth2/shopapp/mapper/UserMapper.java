@@ -27,6 +27,7 @@ public class UserMapper {
                 userName(userDTO.getUserName())
                 .password(passwordEncoder.encode(userDTO.getPassword()))
                 .email(userDTO.getEmail()).rolesList(rolesList).
+        avatar("https://static.vecteezy.com/system/resources/thumbnails/006/487/917/small_2x/man-avatar-icon-free-vector.jpg").
         createdAt(new Date()).
                 is_active(true).
                 build();

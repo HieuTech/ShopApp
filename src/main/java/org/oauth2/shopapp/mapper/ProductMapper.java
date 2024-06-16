@@ -6,9 +6,9 @@ import org.oauth2.shopapp.constant.ErrorDetail;
 import org.oauth2.shopapp.dto.request.ProductDTO;
 import org.oauth2.shopapp.dto.response.ProductResponse;
 import org.oauth2.shopapp.entity.Products;
-import org.oauth2.shopapp.exception.CategoryNotFoundException;
-import org.oauth2.shopapp.repository.ICartRepository;
+import org.oauth2.shopapp.exception.NotFoundException;
 import org.oauth2.shopapp.repository.ICategoryRepository;
+import org.oauth2.shopapp.service.AmazonClient;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -18,24 +18,26 @@ import java.util.Date;
 public class ProductMapper {
 
     private final ICategoryRepository repository;
-    public Products toProduct(ProductDTO req){
+    private final AmazonClient amazonClient;
+
+    public Products toProduct(ProductDTO req) {
         return Products.builder()
                 .name(req.getName())
                 .description(req.getDescription())
                 .active(true)
-                .categories(repository.findById(req.getCategoryId()).orElseThrow(() -> new CategoryNotFoundException(ErrorDetail.CATEGORY_NOTFOUND_ERROR))
+                .categories(repository.findById(req.getCategoryId()).orElseThrow(() -> new NotFoundException(ErrorDetail.CATEGORY_NOTFOUND_ERROR))
                 )
                 .price(req.getPrice())
                 .createdAt(new Date())
-                .thumbnail(req.getThumbnail())
-
+                .thumbnail(amazonClient.uploadFile(req.getFiles()))
                 .build();
 
 
+    }
 
-    };
+    ;
 
-    public ProductResponse toProductResponse(Products p){
+    public ProductResponse toProductResponse(Products p) {
         return ProductResponse.builder()
                 .id(p.getId())
                 .active(p.getActive())

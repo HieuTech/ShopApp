@@ -9,10 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserMapperTest {
 
     private UserMapper userMapper;
-    @BeforeEach
-    void setUp() {
-        userMapper = new UserMapper();
-    }
+
 
 
     @Test

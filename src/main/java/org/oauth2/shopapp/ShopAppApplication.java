@@ -1,8 +1,11 @@
 package org.oauth2.shopapp;
 
+import jakarta.annotation.PostConstruct;
 import org.oauth2.shopapp.constant.RoleName;
+import org.oauth2.shopapp.entity.Products;
 import org.oauth2.shopapp.entity.Roles;
 import org.oauth2.shopapp.entity.Users;
+import org.oauth2.shopapp.repository.IProductsRepository;
 import org.oauth2.shopapp.repository.IRolesRepository;
 import org.oauth2.shopapp.repository.IUserRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -21,10 +24,16 @@ public class ShopAppApplication {
         SpringApplication.run(ShopAppApplication.class, args);
     }
 
+
+    @PostConstruct
+    public void init() {
+        System.out.println("SPRING_DATA_MONGODB_URI: " + System.getenv("SPRING_DATA_MONGODB_URI"));
+    }
 //    @Bean
     public CommandLineRunner commandLineRunner(
             IUserRepository userRepository
             , IRolesRepository rolesRepository
+
 
     ) {
         return args ->
@@ -37,6 +46,8 @@ public class ShopAppApplication {
                     .build();
             rolesRepository.insert(role);
             rolesRepository.insert(role1);
+
+
 
 
             List<Roles> roles = new ArrayList<>();

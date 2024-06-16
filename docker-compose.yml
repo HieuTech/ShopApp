@@ -1,8 +1,6 @@
-version: "3.6"
-
+version: "5"
 
 services:
-
 
   maildev:
     image: maildev/maildev
@@ -20,12 +18,11 @@ services:
       - MAIL_STARTTLS_ENABLE=true
       - MAIL_STARTTLS_REQUIRED=true
 
-
   mongodb:
     image: mongo
     container_name: mongo_db
     ports:
-     - "27017:27017"
+      - "27017:27017"
     volumes:
       - mongo:/data
     environment:
@@ -42,20 +39,29 @@ services:
       - ME_CONFIG_MONGODB_ADMINPASSWORD=hieu123
       - ME_CONFIG_MONGODB_SERVER=mongodb
 
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - ~/jenkins:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      JENKINS_OPTS: --httpPort=8080
 
-  spring-app:
+  shopapp:
     build:
       context: .
       dockerfile: Dockerfile
     depends_on:
-      - maildev
       - mongodb
+      - maildev
       - mongo-express
-
     restart: always
     ports:
-      - "8080:8080"
+      - "8888:8080"
 
 volumes:
-  mongo: {}
-
+  mongo: { }

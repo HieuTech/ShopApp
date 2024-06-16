@@ -9,6 +9,7 @@ import org.oauth2.shopapp.dto.response.ApiResponse;
 import org.oauth2.shopapp.dto.response.UserResponse;
 import org.oauth2.shopapp.service.UserService;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -24,8 +25,15 @@ public class UserController {
     private final UserService userService;
 //    http://localhost:8080/identity/api/v1/register
     @PostMapping("/register")
-    public ApiResponse<UserResponse> createUser(@RequestBody @Valid UserDTO userDTO
+    public ApiResponse<?> createUser(@RequestBody @Valid UserDTO userDTO,BindingResult result
     ) {
+        if(result.hasErrors()){
+            ApiResponse.builder()
+                    .code(HttpStatus.BAD_REQUEST.value())
+                    .message(result.getFieldError().getDefaultMessage())
+                    .build();
+        }
+
         return ApiResponse.<UserResponse>builder()
                 .code(ErrorDetail.SUCCESS.getHttpStatusCode().value())
                 .message(ErrorDetail.CREATED.getMessage())

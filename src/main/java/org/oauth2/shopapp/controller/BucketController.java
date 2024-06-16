@@ -9,11 +9,11 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/api/storage/")
 public class BucketController {
-    private final AmazonClient amazonClient;
-    @Autowired
-    BucketController(AmazonClient amazonClient){
-        this.amazonClient = amazonClient;
-    }
+        private final AmazonClient amazonClient;
+        @Autowired
+        BucketController(AmazonClient amazonClient){
+            this.amazonClient = amazonClient;
+        }
 
     @PostMapping(value = "/uploadFile", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String uploadFile(@RequestPart(value = "file")MultipartFile file){

@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.oauth2.shopapp.constant.ErrorDetail;
 import org.oauth2.shopapp.dto.response.ApiResponse;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -50,20 +49,9 @@ public class GlobalExceptionHandler {
 
     }
 
-    @ExceptionHandler(value = UserNotFoundException.class)
-    ResponseEntity<ApiResponse> handleUserNotFoundException(UserNotFoundException ex){
+    @ExceptionHandler(value = NotFoundException.class)
+    ResponseEntity<ApiResponse> handleUserNotFoundException(NotFoundException ex){
         log.info("UserNotFoundException" + ex);
-        return ResponseEntity.status(ex.getErrorDetail().getHttpStatusCode()).body(ApiResponse.
-                builder()
-                .code(ex.getErrorDetail().getCode())
-                .message(ex.getMessage())
-                .result(ex.getErrorDetail().getHttpStatusCode())
-                .build());
-    }
-
-    @ExceptionHandler(value = CategoryNotFoundException.class)
-    ResponseEntity<ApiResponse> handleCategoryNotFound(CategoryNotFoundException ex){
-        log.info("CategoryNotFoundException" + ex);
         return ResponseEntity.status(ex.getErrorDetail().getHttpStatusCode()).body(ApiResponse.
                 builder()
                 .code(ex.getErrorDetail().getCode())

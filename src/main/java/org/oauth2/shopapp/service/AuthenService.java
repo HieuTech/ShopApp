@@ -6,18 +6,16 @@ import org.oauth2.shopapp.constant.ErrorDetail;
 import org.oauth2.shopapp.dto.request.AuthenRequest;
 import org.oauth2.shopapp.dto.request.IntrospectRequest;
 import org.oauth2.shopapp.dto.request.LogoutRequest;
-import org.oauth2.shopapp.dto.response.ApiResponse;
 import org.oauth2.shopapp.dto.response.AuthenResponse;
 import org.oauth2.shopapp.dto.response.IntrospectReponse;
 import org.oauth2.shopapp.entity.InvalidToken;
 import org.oauth2.shopapp.exception.UnAuthenticationException;
 import org.oauth2.shopapp.exception.UnAuthorizedException;
 import org.oauth2.shopapp.exception.UndecodeJwtException;
-import org.oauth2.shopapp.exception.UserNotFoundException;
+import org.oauth2.shopapp.exception.NotFoundException;
 import org.oauth2.shopapp.repository.IInvalidToken;
 import org.oauth2.shopapp.repository.IUserRepository;
 import org.oauth2.shopapp.security.JwtProvider;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -33,12 +31,12 @@ public class AuthenService {
     private final JwtProvider jwtProvider;
 
     public AuthenResponse login(AuthenRequest authenRequest){
-        var user =  iUserRepository.findByEmail(authenRequest.getEmail()).orElseThrow(()-> new UserNotFoundException(ErrorDetail.USER_NOT_EXISTED));
+        var user =  iUserRepository.findByEmail(authenRequest.getEmail()).orElseThrow(()-> new NotFoundException(ErrorDetail.USER_NOT_EXISTED));
 
         //kiem tra password
         boolean passwordIsMatched = passwordEncoder.matches(authenRequest.getPassword(), user.getPassword());
 
-        if(!passwordIsMatched) throw new UserNotFoundException(ErrorDetail.USER_NOT_EXISTED); //ERROR 401
+        if(!passwordIsMatched) throw new NotFoundException(ErrorDetail.USER_NOT_EXISTED); //ERROR 401
 
         if(!user.getIs_active()){
             throw new UnAuthorizedException(ErrorDetail.UNAUTHORIZED);
