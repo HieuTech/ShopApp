@@ -10,10 +10,7 @@ import org.oauth2.shopapp.dto.response.ApiResponse;
 import org.oauth2.shopapp.dto.response.AuthenResponse;
 import org.oauth2.shopapp.dto.response.IntrospectReponse;
 import org.oauth2.shopapp.service.AuthenService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 
@@ -22,6 +19,18 @@ import java.text.ParseException;
 @RequiredArgsConstructor
 public class AuthenticationController {
     private final AuthenService authenService;
+
+
+    @PostMapping("/outbound/authentication")
+    ApiResponse<AuthenResponse> outboundAuthenticate(@RequestParam("code") String code){
+        var result = authenService.outboundAuthen(code);
+        return ApiResponse.<AuthenResponse>builder()
+                .result(result)
+
+                .build();
+    }
+
+
     @PostMapping("/token")
     ApiResponse<AuthenResponse> getToken(@RequestBody AuthenRequest authenRequest) {
         var result = authenService.login(authenRequest);

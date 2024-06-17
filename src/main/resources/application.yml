@@ -4,7 +4,6 @@ server:
     context-path: /identity
 
 spring:
-
   mail:
     host: smtp.gmail.com
     port: 587
@@ -17,7 +16,6 @@ spring:
           starttls:
             enable: true
             required: true
-
   data:
     mongodb:
       database: ShopApp
@@ -25,13 +23,20 @@ spring:
       password: hieu123
       port: 27017
       authentication-database: admin
-#      host: mongodb
 
   servlet:
     multipart:
       enabled: true
       max-file-size: 10MB
       max-request-size: 10MB
+
+outbound:
+  client-id: "59080131813-jk3cpt412lo0dkbkv3t20r7pufc56rcg.apps.googleusercontent.com"
+  secret-id: "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"
+  uri-redirect: "http://localhost:5173/authenticate"
+  grant-type: "authorization_code"
+
+
 
 amazonProperties:
   endpointUrl: https://s3.us-east-1.amazonaws.com
@@ -41,5 +46,6 @@ amazonProperties:
 
 jwt:
   secretKey: "1TjXchw5FloESb63Kc+DFhTARvpWL4jUGCwfGWxuG5SIf/1y/LgJxHnMqaF6A/ij"
+
   valid-duration: 3600    #insecond
   refresh-duration: 4600

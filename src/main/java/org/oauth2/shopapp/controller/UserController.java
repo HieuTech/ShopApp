@@ -18,12 +18,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 
 public class UserController {
     private final UserService userService;
 //    http://localhost:8080/identity/api/v1/register
+
     @PostMapping("/register")
     public ApiResponse<?> createUser(@RequestBody @Valid UserDTO userDTO,BindingResult result
     ) {

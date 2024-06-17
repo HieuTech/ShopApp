@@ -1,4 +1,4 @@
-version: "5"
+version: "3"
 
 services:
 
@@ -25,6 +25,8 @@ services:
       - "27017:27017"
     volumes:
       - mongo:/data
+
+
     environment:
       - MONGO_INITDB_ROOT_USERNAME=hieu
       - MONGO_INITDB_ROOT_PASSWORD=hieu123
@@ -39,17 +41,17 @@ services:
       - ME_CONFIG_MONGODB_ADMINPASSWORD=hieu123
       - ME_CONFIG_MONGODB_SERVER=mongodb
 
-  jenkins:
-    image: jenkins/jenkins:lts
-    container_name: jenkins
-    ports:
-      - "8080:8080"
-      - "50000:50000"
-    volumes:
-      - ~/jenkins:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      JENKINS_OPTS: --httpPort=8080
+#  jenkins:
+#    image: jenkins/jenkins:lts
+#    container_name: jenkins
+#    ports:
+#      - "8080:8080"
+#      - "50000:50000"
+#    volumes:
+#      - ~/jenkins:/var/jenkins_home
+#      - /var/run/docker.sock:/var/run/docker.sock
+#    environment:
+#      JENKINS_OPTS: --httpPort=8080
 
   shopapp:
     build:
@@ -62,6 +64,8 @@ services:
     restart: always
     ports:
       - "8888:8080"
+#    environment:
+#      - SPRING_DATA_MONGODB_URI=mongodb://hieu:hieu123@mongodb:27017/ShopApp?authSource=admin
 
 volumes:
   mongo: { }
