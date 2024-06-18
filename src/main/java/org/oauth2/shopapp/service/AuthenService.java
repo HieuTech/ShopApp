@@ -62,6 +62,7 @@ public class AuthenService {
 
 
     public AuthenResponse outboundAuthen(String code){
+
         var response = exchangeToken.exchangeToken(ExchangeTokenRequest.builder()
                         .clientId(CLIENT_ID)
                         .clientSecret(SECRET_ID)

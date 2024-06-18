@@ -21,7 +21,6 @@ public class ProductDTO {
     @Min(value = 0, message = "Price must greater than or equal to 0")
     @Max(value = 1000000, message = "Price must less than or equal 1000000")
     private Double price;
-    private String thumbnail;
     private String description;
     private LocalDate updateAt;
 

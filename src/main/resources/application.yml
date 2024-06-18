@@ -34,6 +34,7 @@ outbound:
   client-id: "59080131813-jk3cpt412lo0dkbkv3t20r7pufc56rcg.apps.googleusercontent.com"
   secret-id: "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"
   uri-redirect: "http://localhost:5173/authenticate"
+#  uri-redirect: "http://localhost:80/authenticate"
   grant-type: "authorization_code"
 
 

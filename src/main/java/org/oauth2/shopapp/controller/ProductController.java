@@ -57,6 +57,7 @@ public class ProductController {
         Page<Products> product = productService.getAllProduct(page - 1, limit);
 
         return org.oauth2.shopapp.dto.response.ApiResponse.<Page<Products>>builder()
+                .code(ErrorDetail.SUCCESS.getCode())
                 .message(ErrorDetail.SUCCESS.getMessage())
                 .result(product)
                 .build();
@@ -71,6 +72,7 @@ public class ProductController {
         Page<Products> product = productService.sortByPrice(page - 1, limit, sort);
 
         return org.oauth2.shopapp.dto.response.ApiResponse.<Page<Products>>builder()
+                .code(ErrorDetail.SUCCESS.getCode())
                 .message(ErrorDetail.SUCCESS.getMessage())
                 .result(product)
                 .build();
@@ -84,6 +86,7 @@ public class ProductController {
         Page<Products> product = productService.sortByPrice(page - 1, limit, sort);
 
         return org.oauth2.shopapp.dto.response.ApiResponse.<Page<Products>>builder()
+                .code(ErrorDetail.SUCCESS.getCode())
                 .message(ErrorDetail.SUCCESS.getMessage())
                 .result(product)
                 .build();
@@ -94,6 +97,8 @@ public class ProductController {
     public org.oauth2.shopapp.dto.response.ApiResponse<Products> findById(@PathVariable("id") String id) {
 
             return org.oauth2.shopapp.dto.response.ApiResponse.<Products>builder()
+                    .code(ErrorDetail.SUCCESS.getCode())
+                    .message(ErrorDetail.SUCCESS.getMessage())
                     .result(productService.findById(id))
                     .build();
 
@@ -102,6 +107,8 @@ public class ProductController {
     @GetMapping("/name") //http://localhost:8080/identity/api/v1/products/name?name
     public org.oauth2.shopapp.dto.response.ApiResponse<List<Products>> searchByName(@RequestParam("name") String name){
         return org.oauth2.shopapp.dto.response.ApiResponse.<List<Products>>builder()
+                .code(ErrorDetail.SUCCESS.getCode())
+                .message(ErrorDetail.SUCCESS.getMessage())
                 .result(productService.findByName(name))
                 .build();
     }
@@ -109,6 +116,7 @@ public class ProductController {
 
     //Chuyển file đó thành data
     @PostMapping(value = "", consumes = MediaType.MULTIPART_FORM_DATA_VALUE) //http://localhost:8080/identity/api/v1/products
+
     //Nếu tham số truyền vào là 1 object thì là phải thông qua DTO
     public org.oauth2.shopapp.dto.response.ApiResponse<?> createProducts(@ModelAttribute @Valid ProductDTO productDTO,
                                                                                        BindingResult result) {
@@ -121,6 +129,8 @@ public class ProductController {
         }
 
         return org.oauth2.shopapp.dto.response.ApiResponse.<ProductResponse>builder()
+                .code(ErrorDetail.CREATED.getCode())
+                .message(ErrorDetail.CREATED.getMessage())
                 .result(productService.createProduct(productDTO))
                 .build();
 

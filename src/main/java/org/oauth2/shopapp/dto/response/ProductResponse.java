@@ -26,7 +26,9 @@ public class ProductResponse {
     LocalDate updateAt;
     Boolean active;
     Double price;
-
-
     Categories categories;
+
+    public ProductResponse(ProductResponse productResponse) {
+
+    }
 }
